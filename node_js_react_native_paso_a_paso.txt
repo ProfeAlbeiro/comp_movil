@@ -277,7 +277,7 @@
                     test command:
                     git repository:
                     keywords: ReactNative NodeJs
-                    author: Instructor Albeiro Ramos
+                    author: Albeiro Ramos
                     license: (ISC) MIT
                     About to write to C:\Users\Instructor\Documents\_albe_\react_native\backend\package.json:
 
@@ -316,13 +316,12 @@
 
             01. En 'backend/config/config.js' escribir el siguiente código:
 
-
                     01   const mysql = require('mysql');
                     02   const db = mysql.createConnection({
                     03     host: 'localhost',
                     04     user: 'root',
                     05     password: '',
-                    06     database: 'nodejs_base1'
+                    06     database: 'nodejs_base1',
                     07     port: 3307
                     08   });
                     09
@@ -332,6 +331,16 @@
                     13   });
                     14
                     15   module.exports = db;           
+
+            02. Crear en la 'node_js' una carpeta 'routes' y en su interior un archivo denominado 'userRoutes.js'. El código del archivo es
+                el siguiente:
+
+                    01   const userController = require('../controllers/userController');
+                    02
+                    03   module.exports = (app) => {
+                    04     app.post('/api/users/create', userController.register);
+                    04     app.post('/api/users/login', userController.login);
+                    05   }
 
             03. En 'backend/server.js' escribir el siguiente código:
 
