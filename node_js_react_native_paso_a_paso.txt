@@ -274,7 +274,7 @@
                     package name: (backend) nodejs
                     version: (1.0.0)
                     description: Backend de la app móvil de react native
-                    entry point: (index.js) server.js
+                    entry point: (server.js) server.js
                     test command:
                     git repository:
                     keywords: ReactNative NodeJs
