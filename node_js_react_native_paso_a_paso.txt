@@ -41,6 +41,7 @@
 
             01. Instalar las siguientes extensiones en Visual Studio Code:
 
+                    ⦿   Material Icon Theme
                     ⦿   ES7 React/Redux/React-Native snippets
                     ⦿   Simple React Snippets
                     ⦿   Auto Close Tag
