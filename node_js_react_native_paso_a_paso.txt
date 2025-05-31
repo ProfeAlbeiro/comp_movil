@@ -7,7 +7,7 @@
 ||| -- 01.  EDITOR DE CÓDIGO Y EXTENSIONES                                                                                                             |||
 ||| -- 02.  BASE DE DATOS. MySQL                                                                                                                       |||
 ||| -- 03.  ESTRUCTURA DE CARPETAS Y ARCHIVOS DEL PROYECTO                                                                                             |||
-||| -- 04.  BACKEND. Node.js, Server y API                                                                                                             |||
+||| -- 04.  BACKEND. Node.js, API y Server                                                                                                             |||
 ||| -- 05.  FRONTEND MÓVIL. React Native                                                                                                               |||
 ||| -- 06.  DESPLEGAR EL PROYECTO                                                                                                                      |||
 |||                                                                                                                                                    |||
@@ -188,11 +188,9 @@
                     └── tsconfig.json                                       # A. Configuración para el compilador de TypeScript.
 
 
-
-
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 |||----------------------------------------------------------------------------------------------------------------------------------------------------|||
-|||-------------------------------------------------------- 04.  BACKEND. Node.js, Server y API -------------------------------------------------------|||
+|||-------------------------------------------------------- 04.  BACKEND. Node.js, API y Server -------------------------------------------------------|||
 |||----------------------------------------------------------------------------------------------------------------------------------------------------|||
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 
@@ -219,7 +217,6 @@
     (NO CREAR)  │   ├── package-lock.json                                   # A. Versiones exactas de las dependencias del backend.
     (NO CREAR)  │   ├── package.json                                        # A. Manifiesto del backend (nombre, dependencias, scripts, etcs).
                 │   └── server.js                                           # A. Servidor node.js.
-
 
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -254,6 +251,7 @@
 
                     PS C:\..\..> node --version
                     PS C:\..\..> npm --version
+
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 |-- 04.04.  Instalar dependencias en el 'backend/': -----------------------------------------------------------------------------------------------------|
@@ -311,7 +309,8 @@
                     PS C:\..\backend> npm i bcryptjs
                     PS C:\..\backend> npm i passport
                     PS C:\..\backend> npm i passport-jwt
-                    PS C:\..\backend> npm i jsonwebtoken            
+                    PS C:\..\backend> npm i jsonwebtoken    
+
             
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 |-- 04.05.  Modificar el archivo 'backend/config/config.js': --------------------------------------------------------------------------------------------|
@@ -323,7 +322,7 @@
                     04     user: 'root',
                     05     password: '',
                     06     database: 'db_node_react',
-                    07     port: 3307
+                    07     port: 3306
                     08   });
                     09 
                     10   db.connect(function(err) {
@@ -333,11 +332,12 @@
                     14 
                     15   module.exports = db;
 
+
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 |-- 04.06.  Modificar el archivo 'backend/models/user.js': ----------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-                    01   const db = require('../config/config.js');
+                    01   const db = require('../config/config');
                     02   const bcrypt = require('bcryptjs');
                     03   const User = {};
                     04 
@@ -413,8 +413,195 @@
                     74   module.exports = User;
 
 
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.07.  Modificar el archivo 'backend/config/keys.js': ----------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Ingrese a la siguiente página: https://www.vondy.com/random-key-generator--ZzGGMYgS?lc=5 (o en alguna página que genere códigos de 256
+                bit de forma aleatoria) para generar una clave de 256 bits; cópiela y péguela en el archivo 'backend/config/keys.js', quedando de la 
+                siguiente forma:
+
+                    01   module.exports = {
+                    02       secretOrKey: 'e9f94f8d3a1e6d7c2b3f9e5a7c8d4f2b7a0e1d3c4f5b6a7e9f8d0c3b4a6d2e1'
+                    03   }
+
+                    
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.08.  Modificar el archivo 'backend/config/passport.js': ------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+                    
+                    01   const JwtStrategy = require('passport-jwt').Strategy;
+                    02   const ExtractJwt = require('passport-jwt').ExtractJwt;
+                    03   const Keys = require('./keys');
+                    04   const User = require('../models/user');
+                    05 
+                    06   module.exports = (passport) => {
+                    07     let opts = {};
+                    08     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
+                    09     opts.secretOrKey = Keys.secretOrKey;
+                    10
+                    11     passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+                    12       User.findById(jwt_payload.id, (err, user) => {
+                    13           if (err) {
+                    14               return done(err, false);
+                    15           }
+                    16           if (user) {
+                    17               return done(null, user);
+                    18           }
+                    19           else{
+                    20               return done(null, false);
+                    21           }
+                    22       });
+                    23     }));
+                    24   }
 
 
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.09.  Modificar el archivo 'backend/controllers/userController.js': -------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+                                        
+                    01   const User = require('../models/user');
+                    02   const bcrypt = require('bcryptjs');
+                    03   const jwt = require('jsonwebtoken');
+                    04   const keys = require('../config/keys');
+                    05 
+                    06   module.exports = {
+                    07     login(req, res) {
+                    08       const email = req.body.email;
+                    09       const password = req.body.password;
+                    10 
+                    11       User.findByEmail(email, async (err, myUser) => {
+                    12         if (err) {
+                    13           return res.status(501).json({
+                    14             success: false,
+                    15             message: 'Error al consultar el usuario',
+                    16             error: err
+                    17           });
+                    18         }
+                    19         if (!myUser) {
+                    20           return res.status(401).json({
+                    21             success: false,
+                    22             message: 'El email no existe en la base de datos'
+                    23           });
+                    24         }
+                    25         const isPasswordValid = await bcrypt.compare(password, myUser.password);
+                    26         if (isPasswordValid) {
+                    27           const token = jwt.sign({ id: myUser.id, email: myUser.email }, keys.secretOrKey, {});
+                    28 
+                    29           const data = {
+                    30             id: myUser.id,
+                    31             email: myUser.email,
+                    32             name: myUser.name,
+                    33             lastname: myUser.lastname,
+                    34             image: myUser.image,
+                    35             phone: myUser.phone,
+                    36             session_token: `JWT ${token}`
+                    37           }
+                    38           return res.status(201).json({
+                    39             success: true,
+                    40             message: 'Usuario autenticado ',
+                    41             data: data
+                    42           });
+                    43         }
+                    44         else {
+                    45           return res.status(401).json({
+                    46             success: false,
+                    47             message: 'Contraseña o correo incorrecto'
+                    48           });
+                    49         }
+                    50       });
+                    51     },
+                    52 
+                    53     register(req, res) {
+                    54       const user = req.body;
+                    55       User.create(user, (err, data) => {
+                    56         if (err) {
+                    57           return res.status(501).json ({
+                    58             success: false,
+                    59             message: 'Error al crear al usuario',
+                    60             error: err
+                    61           });
+                    62         } else {
+                    63           return res.status(201).json({
+                    64             success: true,
+                    65             message: 'Creado el Usuario',
+                    66             data: data
+                    67           });
+                    68         }
+                    69       });
+                    70     }
+                    71   }
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.10.  Modificar el archivo 'backend/routes/userRoutes.js': ----------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+                    
+                    01   const userController = require('../controllers/userController');
+                    02  
+                    03    module.exports = (app) => {
+                    04      app.post('/api/users/create', userController.register);
+                    05      app.post('/api/users/login', userController.login);
+                    06    }
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.11.  Modificar el archivo 'backend/server.js': ---------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Verificar la dirección IPv4 del dispositivo. Abra una nueva terminal en 'Visual Studio Code' y ejecutar los siguientes comandos:
+            
+                    PS C:\..\..> ipconfig
+
+                    Dirección IPv4. . . . . . . . . . . . . . : 192.168.1.77
+
+
+            02. En la línea 29 del archivo 'backend/server.js', escribir la dirección IPv4 encontrada, quedando de la siguiente forma:                    
+                    
+                    01   const express = require('express');
+                    02   const passport = require('passport');
+                    03 
+                    04   const app = express();
+                    05   const http = require('http');
+                    06   const server = http.createServer(app);
+                    07   const logger = require('morgan');
+                    08   const cors = require('cors');
+                    09 
+                    10   const usersRoutes = require('./routes/userRoutes');
+                    11 
+                    12   const port = process.env.PORT || 3000;
+                    13 
+                    14   app.use(logger('dev'));
+                    15   app.use(express.json());
+                    16   app.use(express.urlencoded({ extended: true }));
+                    17   app.use(cors());
+                    18   app.use(passport.initialize());
+                    19   app.use(passport.session());
+                    20 
+                    21   require('./config/passport')(passport);
+                    22 
+                    23   app.disable('x-powered-by');
+                    24 
+                    25   app.set('port', port);
+                    26 
+                    27   usersRoutes(app);
+                    28 
+                    29   server.listen(3000, '192.168.1.77' || 'localhost', function(){
+                    30     console.log('App node.js ' + process.pid + ' ejecutando en ' + server.address().address + ':' + server.address().port);
+                    31   });
+                    32 
+                    33   app.get('/', (req, res) => {
+                    34     res.send('Ruta raíz del Backend');
+                    35   });
+                    36 
+                    37   app.get('/test', (req, res) => {
+                    38     res.send('Ruta TEST');
+                    39   });
+                    40 
+                    41   app.use((err, req, resp, next) => {
+                    42     console.log(err);
+                    43     res.status(err.status || 500).send(err.stack);
+                    44   });
 
 
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
@@ -429,7 +616,7 @@
 
             01. Crear la Base de datos:
 
-                https://github.com/ProfeAlbeiro/react_native/blob/main/sources/db/nodejs_base1.sql
+                https://github.com/ProfeAlbeiro/comp_movil/blob/main/sources/db/db_node_react.sql
 
             02. Abrir el emulador de Android Studio
 
