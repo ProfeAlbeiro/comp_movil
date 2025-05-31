@@ -605,6 +605,35 @@
 
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.12.  Modificar el archivo 'backend/package.json': ------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Ingrese a 'backend/package.json' y cambie la version de la dependencia de 'passport' en la línea 25, quedando así:
+
+                    25   "passport": "^0.4.1",
+
+            02. En la terminal de Visual Studio Code, escribir el siguiente comando para que reciba el cambio en 'node_js/package.json':
+
+                    PS C:\..\backend> npm i
+
+                          
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 04.13.  Ejecutar el Servidor 'server.js': -----------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Iniciar el servidor 'backend' desde la terminal de Visual Studio Code.
+
+                    PS C:\..\backend> node server.js
+            
+            02. Debe aparecer en la terminal, texto similar a lo siguiente:
+            
+                    App node.js 14124 ejecutando en 192.168.1.77:3000
+                    Base de datos conectada
+
+            NOTA:   ⦿   Para detener el servidor, ubíquese en la terminal de Visual Studio Code y presione 'CTRL + C'.
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 |-- 04.12.  Probar la API en el Servidor con Postman: ---------------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
@@ -616,7 +645,7 @@
 
                     ⦿   Cambiar al método 'POST'
 
-                    ⦿   Escribir el siguiente 'EndPoint': 192.168.137.1:3000/api/users/login
+                    ⦿   Escribir el siguiente 'EndPoint': http://192.168.1.77:3000/api/users/login
 
             NOTA:   ⦿   Recuerde modificar la dirección IP para su aplicación.
 
@@ -652,21 +681,8 @@
                           12     }
                           13   }
 
-                  NOTA:   ⦿   En caso de error, ingrese a 'node_js/package.json' y cambie la version de la dependencia de passport, quedando así:
-
-                                23   "passport": "^0.4.1",
-
+                  
                           ⦿   Detenga el servidor 'node_js' ubicándose en la terminal de Visual Studio Code y presionando 'CTRL + C'.
-
-                          ⦿   Ejecutar en la terminal de Visual Studio Code el siguiente comando para que reciba el cambio en 'node_js/package.json':
-
-                                ⦿   PS C:\..\node_js> npm i
-
-                          ⦿   Inicie nuevamente el servidor 'node_js' desde la terminal de Visual Studio Code.
-
-                                ⦿   PS C:\..\node_js> node server.js
-
-                          ⦿   Vuelva a iniciar este mismo punto.
 
 
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
