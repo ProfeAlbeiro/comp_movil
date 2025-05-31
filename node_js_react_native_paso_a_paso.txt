@@ -4,21 +4,21 @@
 |||----------------------------------------------------------------------------------------------------------------------------------------------------|||
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 |||                                                                                                                                                    |||
-||| -- 01.  VISUAL STUDIO CODE Y EXTENSIONES                                                                                                           |||
+||| -- 01.  EDITOR DE CÓDIGO Y EXTENSIONES                                                                                                             |||
 ||| -- 02.  BASE DE DATOS. MySQL                                                                                                                       |||
 ||| -- 03.  ESTRUCTURA DE CARPETAS Y ARCHIVOS DEL PROYECTO                                                                                             |||
 ||| -- 04.  BACKEND. Node.js, Server y API                                                                                                             |||
 ||| -- 05.  FRONTEND MÓVIL. React Native                                                                                                               |||
 ||| -- 06.  DESPLEGAR EL PROYECTO                                                                                                                      |||
 |||                                                                                                                                                    |||
-||| -- AUTOR:           ADAPTACIÓN hecha por ALBEIRO RAMOS. UNIMINUTO, 2025; del ORIGINAL elaborado por el Instructor MARCO LEÓN MORA. SENA, 2023.     |||                                                          |||
+||| -- AUTOR:           ADAPTACIÓN hecha por ALBEIRO RAMOS. UNIMINUTO, 2025; del ORIGINAL elaborado por el Instructor MARCO LEÓN MORA. SENA, 2023.     |||
 |||                                                                                                                                                    |||
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 
 
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 |||----------------------------------------------------------------------------------------------------------------------------------------------------|||
-|||------------------------------------------------------- 01. VISUAL STUDIO CODE Y EXTENSIONES -------------------------------------------------------|||
+|||-------------------------------------------------------- 01.EDITOR DE CÓDIGO Y EXTENSIONES ---------------------------------------------------------|||
 |||----------------------------------------------------------------------------------------------------------------------------------------------------|||
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 
@@ -80,8 +80,8 @@
             
             02. Dar click en 'SQL' y escribir el siguiente código:
                     
-                    01   CREATE SCHEMA nodejs_base1 DEFAULT CHARACTER SET utf8 ;
-                    02   USE nodejs_base1;
+                    01   CREATE SCHEMA db_node_react DEFAULT CHARACTER SET utf8 ;
+                    02   USE db_node_react;
                     03 
                     04   CREATE TABLE users (
                     05     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -322,7 +322,7 @@
                     03     host: 'localhost',
                     04     user: 'root',
                     05     password: '',
-                    06     database: 'nodejs_base1',
+                    06     database: 'db_node_react',
                     07     port: 3307
                     08   });
                     09 
@@ -414,3 +414,35 @@
 
 
 
+
+
+
+|||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
+|||----------------------------------------------------------------------------------------------------------------------------------------------------|||
+|||------------------------------------------------------------ 06. DESPLEGAR EL PROYECTO -------------------------------------------------------------|||
+|||----------------------------------------------------------------------------------------------------------------------------------------------------|||
+|||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 06.01. Cuando YA está preparado el Entorno de Desarrollo (De lo contrario vaya al punto '01' de este mismo tutorial ): ------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Crear la Base de datos:
+
+                https://github.com/ProfeAlbeiro/react_native/blob/main/sources/db/nodejs_base1.sql
+
+            02. Abrir el emulador de Android Studio
+
+            03. Tomar en cuenta la 'ipconfig' del 'node_js/server.js' y 'my-app/src/Data/sources/remote/api/apiDelivery.tsx' ya que deben coincidir
+
+            04. Abrir una terminal en 'Visual Studio Code' y ejecutar los siguientes comandos:
+
+                    ⦿   PS C:\..> cd backend
+                    ⦿   PS C:\..\backend> npm install
+                    ⦿   PS C:\..\backend> node server.js
+            
+            05. Abrir otra terminal en 'Visual Studio Code' y ejecutar los siguientes comandos:
+
+                    ⦿   PS C:\..> cd frontend
+                    ⦿   PS C:\..\frontend> npm install
+                    ⦿   PS C:\..\frontend> npm run android
