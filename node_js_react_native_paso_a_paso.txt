@@ -53,9 +53,9 @@
                     ⦿   'Terminal / New Terminal' ó 'Ctrl + Shift + ñ'
                     ⦿   Verificar que sea 'pwsh' (powershell) o sino hay que cambiarla
             
-            03. Cambiar el nombre de la terminal a 'backend', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
+            03. Cambiar el nombre de la terminal a 'commands', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
             
-            04. Cambiar el color de la terminal 'backend', dando click derecho / Chage Color... / Seleccionar el color
+            04. Cambiar el color de la terminal 'commands', dando click derecho / Chage Color... / Seleccionar el color
 
 
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
@@ -199,7 +199,7 @@
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 04.01.  Crear la Siguiente estructura de carpetas: --------------------------------------------------------------------------------------------------|
+|-- 04.01.  Crear la siguiente estructura de carpetas: --------------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
                                                                                                                                         # C = Carpetas
@@ -238,7 +238,7 @@
 |-- 04.03.  PowerShell. Directivas: ---------------------------------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-            01. En la terminal de 'Visual Studio Code', digitar el siguiente comando para ver las directivas de ejecución:
+            01. Abir PowerShell y digitar el siguiente comando para ver las directivas de ejecución:
 
                     PS C:\..\..> Get-ExecutionPolicy
                     Restricted
@@ -262,6 +262,12 @@
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
             01. Abrir una Terminal en 'Visual Studio Code' y digitar los siguientes comandos:
+
+            02. Cambiar el nombre de la terminal a 'backend', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
+            
+            03. Cambiar el color de la terminal 'backend', dando click derecho / Chage Color... / Seleccionar el color
+            
+            04. En la Terminal de 'Visual Studio Code' digitar lo siguiente:
 
                     PS C:\..\> cd backend
                     PS C:\..\backend> npm init
@@ -661,7 +667,7 @@
                     A.   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
                 |                                                                                                                                      |
                 └ ------------------------------------------------------------------------------------------------------------------------------------ ┘
-                
+
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 |-- 04.13.  Ejecutar el Servidor 'server.js': -----------------------------------------------------------------------------------------------------------|
@@ -769,6 +775,162 @@
                           02       "success": false,
                           03       "message": "El email no existe en la base de datos",
                           04   }
+
+
+
+|||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
+|||----------------------------------------------------------------------------------------------------------------------------------------------------|||
+|||--------------------------------------------------------- 05. FRONTEND MÓVIL. React Native ---------------------------------------------------------|||
+|||----------------------------------------------------------------------------------------------------------------------------------------------------|||
+|||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.01.  Crear la siguiente estructura de carpetas: --------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+                                                                                                                                        # C = Carpetas
+                                                                                                                                        # A = Archivos
+
+                proyecto_nombre/                                            # C. Backend y Frontend de un proyecto móvil.
+                ├── backend/                                                # C. Lógica del servidor Node.js para la gestión de datos y API.
+                └── frontend/                                               # C. Aplicación móvil de React Native.
+                    ├── assets/                                             # C. Recursos estáticos (imágenes, fuentes).
+    (NO CREAR)      ├── node_modules/                                       # C. Dependencias (librerías) instaladas para el frontend.
+                    ├── src/                                                # C. Carpetas y archivos de la aplicación React Native.
+                    │   ├── Data/                                           # C. Capa para obtención y manipulación de datos.
+                    │   │   ├── repositories/                               # C. Interfaces para acceder a diferentes fuentes de datos.
+                    │   │   │   ├── AuthRepository.tsx                      # A. Lógica para la autenticación.
+                    │   │   │   └── UserLocalRepository.tsx                 # A. Gestión de datos del usuario a nivel local (AsyncStorage).
+                    │   │   └── sources/                                    # C. Implementaciones concretas de las fuentes de datos (local, remota).
+                    │   │       ├── local/                                  # C. Lógica para acceder a datos almacenados localmente.
+                    │   │       │   └── LocalStorage.tsx                    # A. Interactua con el almacenamiento local (AsyncStorage).
+                    │   │       └── remote/                                 # C. Interactua con la API del backend (clientes API).
+                    │   │           ├── api/                                # C. Clientes o servicios para realizar llamadas a la API.
+                    │   │           │   └── ApiDelivery.tsx                 # A. Cliente para interactuar con la API relacionada con "delivery".
+                    │   │           └── models/                             # C. Estructuras de datos que se reciben de la API.
+                    │   │               └── ResponseApiDelivery.tsx         # A. Tipo de la respuesta de la API de "delivery".
+                    │   ├── Domain/                                         # C. Lógica de negocio y entidades del dominio (independiente).
+                    │   │   ├── entities/                                   # C. Estructuras de los objetos del negocio (User).
+                    │   │   │   └── User.tsx                                # A. Entidad de usuario con sus propiedades (nombre, email).
+                    │   │   ├── repositories/                               # C. Interfaces para acceder a los datos (implementado en Data).
+                    │   │   │   ├── AuthRepository.tsx                      # A. Interfaz para las operaciones de autenticación.
+                    │   │   │   └── UserLocalRepository.tsx                 # A. Interfaz para la gestión de datos locales del usuario.
+                    │   │   └── useCases/                                   # C. Lógica de negocio específica de la aplicación (dominio/data).
+                    │   │       ├── auth/                                   # C. Casos de uso relacionados con la autenticación (Login, Register).
+                    │   │       │   ├── LoginAuth.tsx                       # A. Lógica para el proceso de inicio de sesión del usuario.
+                    │   │       │   └── RegisterAuth.tsx                    # A. Lógica para el proceso de registro de nuevos usuarios.
+                    │   │       └── userLocal/                              # C. Casos de uso relacionados con la gestión local del usuario.
+                    │   │           ├── GetUserLocal.tsx                    # A. Obtener información del usuario almacenado localmente.
+                    │   │           ├── RemoveUserLocal.tsx                 # A. Eliminar información del usuario almacenado localmente.
+                    │   │           └── SaveUserLocal.tsx                   # A. Guardar la información del usuario localmente.
+                    │   └── Presentation/                                   # C. Capa de la interfaz y presentación de datos (components, views).
+                    │       ├── components/                                 # C. Componentes de interfaz de usuario (inputs, buttons).
+                    │       │   ├── CustomTextInput.tsx                     # A. Componente de entrada de texto personalizado con estilos.
+                    │       │   └── RoundedButton.tsx                       # A. Componente de botón con estilos de bordes redondeados.
+                    │       ├── hooks/                                      # C. Hooks personalizados para lógica de presentación reutilizable.
+                    │       │   └── useUserLocal.tsx                        # A. Hook personalizado para manipular la información local del usuario.
+                    │       ├── theme/                                      # C. Estilos y la temática visual general de la aplicación.
+                    │       │   └── AppTheme.tsx                            # A. Paleta de colores, tipografía y estilos consistentes.
+                    │       └── views/                                      # C. Pantallas o vistas principales de la aplicación.
+                    │           ├── home/                                   # C. Archivos relacionados con la pantalla principal de la aplicación.
+                    │           │   ├── Home.tsx                            # A. Componente principal de la pantalla inicio (Home).
+                    │           │   ├── Styles.tsx                          # A. Estilos específicos para los componentes de la pantalla inicio.
+                    │           │   └── ViewModel.tsx                       # A. Lógica de presentación para la pantalla inicio.
+                    │           ├── profile/                                # C. Archivos relacionados con la pantalla de perfil del usuario.
+                    │           │   └── info/                               # C. Archivos relacionados con la información del perfil del usuario.
+                    │           │       ├── ProfileInfo.tsx                 # A. Componente para mostrar la información del perfil del usuario.
+                    │           │       └── ViewModel.tsx                   # A. Lógica de presentación para la información del perfil del usuario.
+                    │           └── register/                               # C. Archivos relacionados con la pantalla de registro de usuarios.
+                    │               ├── Register.tsx                        # A. Componente principal de la pantalla de registro de usuarios.
+                    │               ├── Styles.tsx                          # A. Estilos específicos para los componentes de la pantalla de registro.
+                    │               └── ViewModel.tsx                       # A. Lógica de presentación para la pantalla de registro de usuarios.
+    (NO CREAR)      ├── .gitignore                                          # A. Archivos y carpetas que Git debe ignorar (node_modules, etc.).
+                    ├── app.json                                            # A. Configuración utilizada por Expo para configurar la app.
+                    ├── App.tsx                                             # A. Raíz de la aplicación React Native (punto de entrada UI).
+                    ├── index.ts                                            # A. Punto de entrada para la aplicación React Native (fuera de Expo).
+    (NO CREAR)      ├── package-lock.json                                   # A. Registra las versiones exactas de las dependencias del frontend.
+    (NO CREAR)      ├── package.json                                        # A. Manifiesto del proyecto frontend (nombre, dependencias, scripts).
+                    └── tsconfig.json                                       # A. Configuración para el compilador de TypeScript.
+
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.02.  Instalar Android Studio: --------------------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+            
+            01. Descargar 'Android Studio': https://developer.android.com/studio?hl=es-419.
+
+                    ⦿   Descargar la versión más reciente.
+
+            02. Instalar Android Studio.
+
+                    ⦿   Dejar habilitado:   ☑ 'Android Virtual Device'.
+                    ⦿   Dar clic a 'Don't send' / 'Next' / 'Next' / '☑ Acepto' / 'Finalizar'.
+
+            NOTA:   ⦿   Si la instalación no sale como se espera porque hay una versión de Android Studio instalada, revise el siguiente enlace para
+                         desinstalarla totalmente y repita los pasos 01 y 02:
+
+                            https://blog.buhoos.com/como-desinstalar-completamente-android-studio-de-windows-10/
+
+                    ⦿   En caso que los archivos y/o carpetas no se dejen eliminar, descargue el siguiente programa y siga las instrucciones para
+                         eliminar las carpetas o archivos. Repita los pasos 01 y 02:
+
+                            https://www.iobit.com/es/recommend/imffree.php?name=iobit_unlocker
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.03.  Configurar las 'Variables de entorno del sistema': ------------------------------------------------------------------------------------------|5
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Buscar en el menú Windows 'Editar las variables de entorno del sistema' para enrutar al SDK de Java y Android SDK
+
+            02. Dar clic en 'Variables de entorno…'
+
+            03. En las 'Variables del sistema' dar clic en 'Nueva...'
+
+                    ⦿   Nombre de la variable:  JAVA_HOME
+                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Program Files\Android\Android Studio\jbr\bin
+
+                    ⦿   Nombre de la variable:  ANDROID_HOME
+                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Users\{usuario_del_sistema}\AppData\Local\Android\Sdk
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.04.  Crear el Emulador en Android Studio: --------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Abrir Android Studio
+
+            02. Seleccionar 'More Actions / Virtual Device Manager'
+
+            03. Seleccionar la opción '(+) Create Virtual Device' y buscar un emulador que tenga los servicios de Google Service para probar las
+                aplicaciones sin restricciones
+
+            04. Seleccionar, por ejemplo, 'Pixel 4' con el icono de Play Store
+
+            05. Dar clic a 'Next' / descargar una versión, por ejemplo, 'Tiramisu'. Dar clic en el botón de descarga para obtener la API
+
+            06. Dejar las opciones por defecto y dar clic a 'Finish' / 'Next' / 'Finish'.
+
+            07. Ejecutar el Emulador dando clic en la punta de flecha (columna 'Actions', la primera vez demorará más tiempo)
+
+            08. Se ha instalado el emulador
+
+
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.01.  Instalar dependencias en el 'frontend/': -----------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Abrir una Terminal en 'Visual Studio Code' y digitar los siguientes comandos:
+
+            02. Cambiar el nombre de la terminal a 'frontend', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
+            
+            03. Cambiar el color de la terminal 'frontend', dando click derecho / Chage Color... / Seleccionar el color
+            
+            04. En la Terminal de 'Visual Studio Code' digitar lo siguiente:
+
 
 
 
