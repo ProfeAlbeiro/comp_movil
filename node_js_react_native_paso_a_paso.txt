@@ -269,7 +269,7 @@
             
             04. En la Terminal de 'Visual Studio Code' digitar lo siguiente:
 
-                    PS C:\..\> cd backend
+                    PS C:\..\..> cd backend
                     PS C:\..\backend> npm init
 
                     This utility will walk you through creating a package.json file.
@@ -785,7 +785,188 @@
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 05.01.  Crear la siguiente estructura de carpetas: --------------------------------------------------------------------------------------------------|
+|-- 05.01.  Instalar Android Studio: --------------------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+            
+            01. Descargar 'Android Studio': https://developer.android.com/studio?hl=es-419.
+
+                    ⦿   Descargar la versión más reciente.
+
+            02. Instalar Android Studio.
+
+                    ⦿   Dejar habilitado:   ☑ 'Android Virtual Device'.
+                    ⦿   Dar clic a 'Don't send' / 'Next' / 'Next' / '☑ Acepto' / 'Finalizar'.
+
+            NOTA:   ⦿   Si la instalación no sale como se espera porque hay una versión de Android Studio instalada, revise el siguiente enlace para
+                         desinstalarla totalmente y repita los pasos 01 y 02:
+
+                            https://blog.buhoos.com/como-desinstalar-completamente-android-studio-de-windows-10/
+
+                    ⦿   En caso que los archivos y/o carpetas no se dejen eliminar, descargue el siguiente programa y siga las instrucciones para
+                         eliminar las carpetas o archivos. Repita los pasos 01 y 02:
+
+                            https://www.iobit.com/es/recommend/imffree.php?name=iobit_unlocker
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.02.  Configurar las 'Variables de entorno del sistema': ------------------------------------------------------------------------------------------|5
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Buscar en el menú Windows 'Editar las variables de entorno del sistema' para enrutar al SDK de Java y Android SDK
+
+            02. Dar clic en 'Variables de entorno…'
+
+            03. En las 'Variables del sistema' dar clic en 'Nueva...'
+
+                    ⦿   Nombre de la variable:  JAVA_HOME
+                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Program Files\Android\Android Studio\jbr\bin
+
+                    ⦿   Nombre de la variable:  ANDROID_HOME
+                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Users\{usuario_del_sistema}\AppData\Local\Android\Sdk
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.03.  Crear el Emulador en Android Studio: --------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Abrir Android Studio
+
+            02. Seleccionar 'More Actions / Virtual Device Manager'
+
+            03. Seleccionar la opción '(+) Create Virtual Device' y buscar un emulador que tenga los servicios de Google Service para probar las
+                aplicaciones sin restricciones
+
+            04. Seleccionar, por ejemplo, 'Pixel 4' con el icono de Play Store
+
+            05. Dar clic a 'Next' / descargar una versión, por ejemplo, 'Tiramisu'. Dar clic en el botón de descarga para obtener la API
+
+            06. Dejar las opciones por defecto y dar clic a 'Finish' / 'Next' / 'Finish'.
+
+            07. Ejecutar el Emulador dando clic en la punta de flecha (columna 'Actions', la primera vez demorará más tiempo)
+
+            08. Se ha instalado el emulador
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.04.  Instalar Expo CLI: --------------------------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            Expo CLI es una interfaz de línea de comandos que permite montar un servidor para correr el proyecto localmente, construir proyectos
+            sencillos y publicarlos. Para más información:
+
+                    ⦿   https://docs.expo.dev/more/expo-cli/
+                    ⦿   https://gist.github.com/mrcodedev/37b463ae63c0c1d762e6efaf4c26af4f
+                    ⦿   https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
+
+            01. En la terminal de 'Visual Studio Code', instalar Expo CLI:
+
+                    ⦿   PS C:\..\react_native> npm install -g expo-cli exp
+                                            ó
+                    ⦿   PS C:\..\react_native> npm install -g react-native-cli
+
+            02. Verificar la versión de expo CLI en la terminal de 'Visual Studio Code':
+
+                    ⦿   PS C:\..\react_native> expo  --version
+
+            NOTA:   ⦿   Si ya tiene un proyecto, reemplace en el archivo “package.json”:
+
+                            ⦿   "scripts":{ "start": "expo start"}, por "scripts":{ "start": "npx expo start"}
+                            ⦿   "scripts":{ "start": "expo start"}, por "scripts":{ "start": "npx expo start"}
+
+                    ⦿   En caso de existir problema, puede desinstalar expo CLI en la terminal de 'Visual Studio Code':
+
+                            ⦿   PS C:\..\react_native> npm uninstall -g expo-cli
+
+                    ⦿   Con el objeto de verificar posibles conflictos de puertos, que se puedan presentar más adelante en el desarrollo de la App,
+                         puede listar los puertos utilizados en Windows desde la consola, con el comando 'netstat -ano'.
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.05.  Crear la aplicación en REACT NATIVE: --------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Obtener los comandos TypeScript a ejecutar: https://reactnative.dev/docs/typescript.
+
+            02. En la terminal de 'Visual Studio Code', crear el proyecto:
+
+                    ⦿   PS PS C:\..\> npx create-expo-app --template
+
+                         Need to install the following packages:
+                         create-expo-app@3.2.0
+                         Ok to proceed? (y) y
+
+                         √ Choose a template: » Blank (TypeScript)
+                         √ What is your app named? ... frontend
+                         √ Downloaded and extracted project files.
+                         > npm install
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.06.  Ejecutar 'frontend' en el emulador de Android: ----------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. Abrir una Terminal en 'Visual Studio Code'.
+
+            02. Cambiar el nombre de la terminal a 'frontend', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
+            
+            03. Cambiar el color de la terminal 'frontend', dando click derecho / Chage Color... / Seleccionar el color
+            
+            04. En la Terminal de 'Visual Studio Code' digitar lo siguiente:
+
+                    ⦿   PS C:\..\..> cd frontend
+                    ⦿   PS C:\..\frontend> npm run android
+
+            NOTA:   ⦿   Tener en cuenta los siguientes comandos de 'Expo Go'. En la Terminal de 'Visual Studio Code' puede ejecutar:
+
+                              › Using Expo Go
+                              › Press s │ switch to development build
+
+                              › Press a │ open Android
+                              › Press w │ open web
+
+                              › Press j │ open debugger
+                              › Press r │ reload app
+                              › Press m │ toggle menu
+                              › shift+m │ more tools
+                              › Press o │ open project code in your editor
+
+                              › Press ? │ show all commands
+
+                              Logs for your project will appear below. Press Ctrl+C to exit.
+
+                              › Using Expo Go
+                              › Press s │ switch to development build
+
+                              › Press a │ open Android
+                              › shift+a │ select an Android device or emulator
+                              › Press w │ open web
+
+                              › Press r │ reload app
+                              › Press j │ open debugger
+                              › Press m │ toggle menu
+                              › shift+m │ more tools
+                              › Press o │ open project code in your editor
+                              › Press c │ show project QR
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.07.  Ejecutar 'frontend' en un dispositivo físico Android: ---------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+            01. En el dispositivo, ir a tienda, para Android es Play Store, buscar 'Expo go' e instalarla.
+
+            02. En la terminal de 'Visual Studio Code', ejecutar:
+
+                    ⦿   PS C:\..\frontend> expo start
+
+            03. Si le solicita dependencias adicionales, pulsar 'Y' para instalarlas. Se generará un código QR.
+
+            04. Abrir la aplicación 'Expo Go' en el dispositivo.
+
+            05. Escanear el 'código QR' con el dispositivo. Los dos equipos deben estar en la misma red WiFi.
+            
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-- 05.08.  Crear la siguiente estructura de carpetas: --------------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
                                                                                                                                         # C = Carpetas
@@ -794,7 +975,7 @@
                 proyecto_nombre/                                            # C. Backend y Frontend de un proyecto móvil.
                 ├── backend/                                                # C. Lógica del servidor Node.js para la gestión de datos y API.
                 └── frontend/                                               # C. Aplicación móvil de React Native.
-                    ├── assets/                                             # C. Recursos estáticos (imágenes, fuentes).
+    (NO CREAR)      ├── assets/                                             # C. Recursos estáticos (imágenes, fuentes).
     (NO CREAR)      ├── node_modules/                                       # C. Dependencias (librerías) instaladas para el frontend.
                     ├── src/                                                # C. Carpetas y archivos de la aplicación React Native.
                     │   ├── Data/                                           # C. Capa para obtención y manipulación de datos.
@@ -845,9 +1026,9 @@
                     │               ├── Styles.tsx                          # A. Estilos específicos para los componentes de la pantalla de registro.
                     │               └── ViewModel.tsx                       # A. Lógica de presentación para la pantalla de registro de usuarios.
     (NO CREAR)      ├── .gitignore                                          # A. Archivos y carpetas que Git debe ignorar (node_modules, etc.).
-                    ├── app.json                                            # A. Configuración utilizada por Expo para configurar la app.
-                    ├── App.tsx                                             # A. Raíz de la aplicación React Native (punto de entrada UI).
-                    ├── index.ts                                            # A. Punto de entrada para la aplicación React Native (fuera de Expo).
+    (NO CREAR)      ├── app.json                                            # A. Configuración utilizada por Expo para configurar la app.
+    (NO CREAR)      ├── App.tsx                                             # A. Raíz de la aplicación React Native (punto de entrada UI).
+    (NO CREAR)      ├── index.ts                                            # A. Punto de entrada para la aplicación React Native (fuera de Expo).
     (NO CREAR)      ├── package-lock.json                                   # A. Registra las versiones exactas de las dependencias del frontend.
     (NO CREAR)      ├── package.json                                        # A. Manifiesto del proyecto frontend (nombre, dependencias, scripts).
                     └── tsconfig.json                                       # A. Configuración para el compilador de TypeScript.
@@ -855,83 +1036,35 @@
 
 
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 05.02.  Instalar Android Studio: --------------------------------------------------------------------------------------------------------------------|
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-            
-            01. Descargar 'Android Studio': https://developer.android.com/studio?hl=es-419.
-
-                    ⦿   Descargar la versión más reciente.
-
-            02. Instalar Android Studio.
-
-                    ⦿   Dejar habilitado:   ☑ 'Android Virtual Device'.
-                    ⦿   Dar clic a 'Don't send' / 'Next' / 'Next' / '☑ Acepto' / 'Finalizar'.
-
-            NOTA:   ⦿   Si la instalación no sale como se espera porque hay una versión de Android Studio instalada, revise el siguiente enlace para
-                         desinstalarla totalmente y repita los pasos 01 y 02:
-
-                            https://blog.buhoos.com/como-desinstalar-completamente-android-studio-de-windows-10/
-
-                    ⦿   En caso que los archivos y/o carpetas no se dejen eliminar, descargue el siguiente programa y siga las instrucciones para
-                         eliminar las carpetas o archivos. Repita los pasos 01 y 02:
-
-                            https://www.iobit.com/es/recommend/imffree.php?name=iobit_unlocker
-
-
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 05.03.  Configurar las 'Variables de entorno del sistema': ------------------------------------------------------------------------------------------|5
+|-- 05.09.  'frontend/App.tsx' y ¡Hola Mundo!: ------------------------------------------------------------------------------------------------------------|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------|
 
-            01. Buscar en el menú Windows 'Editar las variables de entorno del sistema' para enrutar al SDK de Java y Android SDK
+            El módulo principal, que se ejecuta al lanzar la aplicación es 'App.tsx', donde se encuentran las 'View' que son las diferentes
+            pantallas donde se realiza la navegación. Dentro de los 'View' hay componentes. Los 'View' se relacionan con 'styles', que son los
+            estilos aplicados a cada vista.
 
-            02. Dar clic en 'Variables de entorno…'
+            01. Modificar el código del archivo 'App.tsx', para agregar el texto '¡Hola Mundo!':
 
-            03. En las 'Variables del sistema' dar clic en 'Nueva...'
-
-                    ⦿   Nombre de la variable:  JAVA_HOME
-                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Program Files\Android\Android Studio\jbr\bin
-
-                    ⦿   Nombre de la variable:  ANDROID_HOME
-                    ⦿   Valor de la variable:   'Examinar Directorio': C:\Users\{usuario_del_sistema}\AppData\Local\Android\Sdk
-
-
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 05.04.  Crear el Emulador en Android Studio: --------------------------------------------------------------------------------------------------------|
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-
-            01. Abrir Android Studio
-
-            02. Seleccionar 'More Actions / Virtual Device Manager'
-
-            03. Seleccionar la opción '(+) Create Virtual Device' y buscar un emulador que tenga los servicios de Google Service para probar las
-                aplicaciones sin restricciones
-
-            04. Seleccionar, por ejemplo, 'Pixel 4' con el icono de Play Store
-
-            05. Dar clic a 'Next' / descargar una versión, por ejemplo, 'Tiramisu'. Dar clic en el botón de descarga para obtener la API
-
-            06. Dejar las opciones por defecto y dar clic a 'Finish' / 'Next' / 'Finish'.
-
-            07. Ejecutar el Emulador dando clic en la punta de flecha (columna 'Actions', la primera vez demorará más tiempo)
-
-            08. Se ha instalado el emulador
-
-
-
-
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-|-- 05.01.  Instalar dependencias en el 'frontend/': -----------------------------------------------------------------------------------------------------|
-|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-
-            01. Abrir una Terminal en 'Visual Studio Code' y digitar los siguientes comandos:
-
-            02. Cambiar el nombre de la terminal a 'frontend', seleccionándola en la parte inferior derecha y presionando F2 / Rename...
-            
-            03. Cambiar el color de la terminal 'frontend', dando click derecho / Chage Color... / Seleccionar el color
-            
-            04. En la Terminal de 'Visual Studio Code' digitar lo siguiente:
-
-
+                    01   import { StatusBar } from 'expo-status-bar';
+                    02   import { StyleSheet, Text, View } from 'react-native';
+                    03
+                    04   export default function App() {
+                    05     return (
+                    06       <View style={styles.container}>
+                    07         <Text>¡Hola Mundo!</Text>
+                    08         <StatusBar style="auto" />
+                    09       </View>
+                    10     );
+                    11   }
+                    12
+                    13   const styles = StyleSheet.create({
+                    14     container: {
+                    15       flex: 1,
+                    16       backgroundColor: '#fff',
+                    17       alignItems: 'center',
+                    18       justifyContent: 'center',
+                    19     },
+                    20   });
 
 
 |||\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|||
